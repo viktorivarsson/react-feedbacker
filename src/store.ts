@@ -5,7 +5,7 @@ interface NotifyAction {
 
 export type NotifyKind = 'error' | 'success' | 'warning' | 'info';
 
-type NotifyStatus = 'open' | 'closing';
+export type NotifyStatus = 'open' | 'closing';
 
 type NotifyState = NotifyItem[];
 
