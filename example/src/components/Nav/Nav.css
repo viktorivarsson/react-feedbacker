@@ -1,0 +1,13 @@
+.Nav {
+  margin-bottom: 40px;
+}
+
+.NavLink {
+  display: inline-block;
+  margin-right: 20px;
+  color: #0084ff;
+}
+
+.NavLink--active {
+  color: #333;
+}
