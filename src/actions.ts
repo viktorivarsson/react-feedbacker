@@ -1,7 +1,7 @@
-import store, { NotifyItem } from './store';
+import store, { FeedbackItem } from './store';
 
 export const createCloseAction = (closeDelayMs?: number) => (
-  item: NotifyItem,
+  item: FeedbackItem,
 ) => {
   if (!closeDelayMs) {
     return deleteAction(item);
@@ -15,7 +15,7 @@ export const createCloseAction = (closeDelayMs?: number) => (
   setTimeout(() => deleteAction(item), closeDelayMs);
 };
 
-export const deleteAction = (item: NotifyItem) => {
+export const deleteAction = (item: FeedbackItem) => {
   store.dispatch({
     payload: item,
     type: 'DELETE',

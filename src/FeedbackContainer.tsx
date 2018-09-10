@@ -2,19 +2,19 @@ import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { createCloseAction } from './actions';
 import { DelayWrapperProps } from './DelayWrapper';
-import store, { NotifyItem } from './store';
+import store, { FeedbackItem } from './store';
 
-interface NotifyContainerState {
-  notifications: NotifyItem[];
+interface FeedbackContainerState {
+  items: FeedbackItem[];
 }
 
 interface RenderProps {
-  items: NotifyItem[];
-  closeItem: (item: NotifyItem) => void;
+  items: FeedbackItem[];
+  closeItem: (item: FeedbackItem) => void;
   getDelayWrapperProps: (options: DelayWrapperProps) => DelayWrapperProps;
 }
 
-interface NotifyContainerProps {
+interface FeedbackContainerProps {
   closeAfterMs?: number;
   delayCloseMs?: number;
   children?: (props: RenderProps) => JSX.Element;
@@ -22,9 +22,9 @@ interface NotifyContainerProps {
   pauseOnHover?: boolean;
 }
 
-class NotifyContainer extends React.PureComponent<
-  NotifyContainerProps,
-  NotifyContainerState
+class FeedbackContainer extends React.PureComponent<
+  FeedbackContainerProps,
+  FeedbackContainerState
 > {
   public static propTypes = {
     children: PropTypes.func,
@@ -40,11 +40,11 @@ class NotifyContainer extends React.PureComponent<
     pauseOnHover: true,
   };
 
-  constructor(props: NotifyContainerProps) {
+  constructor(props: FeedbackContainerProps) {
     super(props);
 
     this.state = {
-      notifications: [],
+      items: [],
     };
   }
 
@@ -52,7 +52,7 @@ class NotifyContainer extends React.PureComponent<
 
   public onStoreUpdate = () =>
     this.setState({
-      notifications: store.getState(),
+      items: store.getState(),
     });
 
   public componentDidMount() {
@@ -65,7 +65,7 @@ class NotifyContainer extends React.PureComponent<
 
   public render() {
     const { children, render = children } = this.props;
-    const { notifications } = this.state;
+    const { items } = this.state;
 
     const closeAction = createCloseAction(this.props.delayCloseMs);
 
@@ -86,10 +86,10 @@ class NotifyContainer extends React.PureComponent<
       render({
         closeItem: closeAction,
         getDelayWrapperProps,
-        items: notifications,
+        items,
       })
     );
   }
 }
 
-export default NotifyContainer;
+export default FeedbackContainer;

@@ -1,12 +1,12 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { getTimeDifferenceInMs } from './helpers';
-import { NotifyItem } from './store';
+import { FeedbackItem } from './store';
 
 export interface DelayWrapperProps {
   closeAfterMs?: number;
-  close?: (item: NotifyItem) => void;
-  item: NotifyItem;
+  close?: (item: FeedbackItem) => void;
+  item: FeedbackItem;
   pauseOnHover?: boolean;
 }
 

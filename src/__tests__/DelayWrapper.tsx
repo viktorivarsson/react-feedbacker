@@ -2,12 +2,12 @@ import 'jest-dom/extend-expect';
 import * as React from 'react';
 import { cleanup, render } from 'react-testing-library';
 import DelayWrapper from '../DelayWrapper';
-import { NotifyItem } from '../store';
+import { FeedbackItem } from '../store';
 
 afterEach(cleanup);
 jest.useFakeTimers();
 
-const item: NotifyItem = {
+const item: FeedbackItem = {
   id: '123',
   kind: 'error',
   message: 'My message',

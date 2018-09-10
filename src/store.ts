@@ -1,33 +1,33 @@
-interface NotifyAction {
-  payload: NotifyItem;
+interface FeedbackAction {
+  payload: FeedbackItem;
   type: 'INSERT' | 'CLOSE' | 'DELETE';
 }
 
-export type NotifyKind = 'error' | 'success' | 'warning' | 'info';
+export type FeedbackKind = 'error' | 'success' | 'warning' | 'info';
 
-export type NotifyStatus = 'open' | 'closing';
+export type FeedbackStatus = 'open' | 'closing';
 
-type NotifyState = NotifyItem[];
+type FeedbackState = FeedbackItem[];
 
-export interface NotifyItem {
+export interface FeedbackItem {
   id: string;
   message: string;
-  kind: NotifyKind;
-  status: NotifyStatus;
+  kind: FeedbackKind;
+  status: FeedbackStatus;
 }
 
-type Reducer = (state: NotifyState, action: NotifyAction) => NotifyState;
+type Reducer = (state: FeedbackState, action: FeedbackAction) => FeedbackState;
 
-type NotifyListener = () => void;
+type FeedbackListener = () => void;
 
-export const closeItem = (item: NotifyItem): NotifyItem =>
+export const closeItem = (item: FeedbackItem): FeedbackItem =>
   Object.assign(item, {
     status: 'closing',
   });
 
-const notifyReducer: Reducer = (
-  state: NotifyState,
-  { type, payload }: NotifyAction,
+const feedbackReducer: Reducer = (
+  state: FeedbackState,
+  { type, payload }: FeedbackAction,
 ) => {
   switch (type) {
     case 'INSERT':
@@ -44,12 +44,12 @@ const notifyReducer: Reducer = (
 };
 
 const createStore = (reducer: Reducer) => {
-  let state: NotifyState = [];
-  let listeners: NotifyListener[] = [];
+  let state: FeedbackState = [];
+  let listeners: FeedbackListener[] = [];
 
   const getState = () => state;
 
-  const dispatch = (action: NotifyAction) => {
+  const dispatch = (action: FeedbackAction) => {
     const oldState = state;
 
     state = reducer(state, action);
@@ -59,7 +59,7 @@ const createStore = (reducer: Reducer) => {
     }
   };
 
-  const subscribe = (listener: NotifyListener) => {
+  const subscribe = (listener: FeedbackListener) => {
     listeners = [...listeners, listener];
 
     return () => {
@@ -80,6 +80,6 @@ const createStore = (reducer: Reducer) => {
   };
 };
 
-const store = createStore(notifyReducer);
+const store = createStore(feedbackReducer);
 
 export default store;

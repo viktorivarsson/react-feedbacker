@@ -1,5 +1,5 @@
 import React from 'react';
-import { NotifyContainer, DelayWrapper } from '../../../../lib/module';
+import { FeedbackContainer, DelayWrapper } from '../../../../lib/module';
 import styled, { keyframes } from 'react-emotion';
 
 const slideFromRight = keyframes({
@@ -46,7 +46,7 @@ const getColor = kind => {
   return '#fff';
 };
 
-const Notification = styled.div(
+const FeedbackItem = styled.div(
   {
     borderRadius: 3,
     fontSize: 14,
@@ -82,25 +82,25 @@ const CloseButton = styled.button({
   top: 10,
 });
 
-const NotifyEmotion = () => (
-  <NotifyContainer delayCloseMs={400}>
+const FeedbackEmotion = () => (
+  <FeedbackContainer delayCloseMs={400}>
     {({ items, closeItem, getDelayWrapperProps }) => (
       <Container>
         {items.length > 0 &&
           items.map(item => (
             <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
-              <Notification kind={item.kind} status={item.status}>
+              <FeedbackItem kind={item.kind} status={item.status}>
                 {item.message}
 
                 <CloseButton type="button" onClick={() => closeItem(item)}>
                   x
                 </CloseButton>
-              </Notification>
+              </FeedbackItem>
             </DelayWrapper>
           ))}
       </Container>
     )}
-  </NotifyContainer>
+  </FeedbackContainer>
 );
 
-export default NotifyEmotion;
+export default FeedbackEmotion;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { notify } from '../../../../lib/module';
+import { feedback } from '../../../../lib/module';
 import './ButtonGroup.css';
 
 const ButtonGroup = () => (
@@ -7,7 +7,7 @@ const ButtonGroup = () => (
     <button
       className="Button Button--success"
       type="button"
-      onClick={() => notify.success('Success message')}
+      onClick={() => feedback.success('Success message')}
     >
       Add success
     </button>
@@ -15,7 +15,7 @@ const ButtonGroup = () => (
     <button
       className="Button Button--warning"
       type="button"
-      onClick={() => notify.warning('Warning message')}
+      onClick={() => feedback.warning('Warning message')}
     >
       Add warning
     </button>
@@ -23,7 +23,7 @@ const ButtonGroup = () => (
     <button
       className="Button Button--error"
       type="button"
-      onClick={() => notify.error('Error message')}
+      onClick={() => feedback.error('Error message')}
     >
       Add error
     </button>
@@ -31,7 +31,7 @@ const ButtonGroup = () => (
     <button
       className="Button Button--info"
       type="button"
-      onClick={() => notify.info('Info message')}
+      onClick={() => feedback.info('Info message')}
     >
       Add info
     </button>

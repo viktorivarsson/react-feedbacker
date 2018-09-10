@@ -1,21 +1,29 @@
-# React Notify
+# React Feedbacker
 
-The library does not have opinions about styles, but instead gives you the functionality required to show the notifications.
+The library does not have opinions about styles, but instead gives you the functionality required to show the feedback messages.
+
+## Install
+
+```bash
+npm install react-feedbacker --save
+```
 
 ## Usage
 
 ```javascript
-<NotifyContainer closeAfterMs={4000} delayCloseMs={400}>
+import { FeedbackContainer, DelayWrapper } from 'react-feedbacker';
+
+<FeedbackContainer closeAfterMs={4000} delayCloseMs={400}>
   {({ items, closeItem, getDelayWrapperProps }) => (
-    <div className="NotifyContainer">
+    <div className="FeedbackContainer">
       {items.map(item => (
         <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
-          <div className="NotifyItem">
+          <div className="FeedbackItem">
             {item.message}
 
             <button
               type="button"
-              className="NotifyClose"
+              className="FeedbackClose"
               onClick={() => closeItem(item)}
             >
               x
@@ -25,59 +33,59 @@ The library does not have opinions about styles, but instead gives you the funct
       ))}
     </div>
   )}
-</NotifyContainer>
+</FeedbackContainer>;
 ```
 
-### NotifyContainer
+### FeedbackContainer
 
 Input props
 
-| property     | type                                 | description                                                                                                  |
-| ------------ | ------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| closeAfterMs | `number` (optional), default `3000`  | Time to wait before auto closing a notification, set to `0` to disable auto close.                           |
-| delayCloseMs | `number` (optional), default `0`     | Expands the time to close a notification and changes the status of the item to `closing` after time elapsed. |
-| pauseOnHover | `boolean` (optional), default `true` | If auto close timer should pause when mouse is over notification.                                            |
+| property     | type                                 | description                                                                                           |
+| ------------ | ------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| closeAfterMs | `number` (optional), default `5000`  | Time to wait before auto closing an item, set to `0` to disable auto close.                           |
+| delayCloseMs | `number` (optional), default `0`     | Expands the time to close an item and changes the status of the item to `closing` after time elapsed. |
+| pauseOnHover | `boolean` (optional), default `true` | If auto close timer should pause when mouse is over a message.                                        |
 
 Children function or render
 
 | property             | type           | description                                      |
 | -------------------- | -------------- | ------------------------------------------------ |
-| items                | NotifyItem[]   | Array of notifications.                          |
-| closeItem            | `function({})` | A function to close a notification.              |
+| items                | FeedbackItem[] | Array of items.                                  |
+| closeItem            | `function({})` | A function to close an item.                     |
 | getDelayWrapperProps | `function({})` | A function to pass item props into DelayWrapper. |
 
 ```javascript
-<NotifyContainer>{props => {...}}</NotifyContainer>
+<FeedbackContainer>{props => {...}}</FeedbackContainer>
 ```
 
 ```javascript
-<NotifyContainer render={props => {...}} />
+<FeedbackContainer render={props => {...}} />
 ```
 
 ### DelayWrapper
 
-The DelayWrapper component is **only** required if you want to auto close notifications after an amount of time.
+The DelayWrapper component is **only** required if you want to auto close items after an amount of time.
 
 Input props
 
-> Note: these props can easily be sent to DelayWrapper component through `getDelayWrapperProps` provided by NotifyContainer.
+> Note: these props can easily be sent to DelayWrapper component through `getDelayWrapperProps` provided by FeedbackContainer.
 
 ```javascript
 <DelayWrapper {...getDelayWrapperProps({ item })}>
 ```
 
-| property     | type           | description                                                       |
-| ------------ | -------------- | ----------------------------------------------------------------- |
-| closeAfterMs | `number`       | Time to wait before closing a notification.                       |
-| close        | `function({})` | The close function to trigger close of notification.              |
-| item         | `NotifyItem`   | The item that the wrapper should use.                             |
-| pauseOnHover | `boolean`      | If auto close timer should pause when mouse is over notification. |
+| property     | type           | description                                                  |
+| ------------ | -------------- | ------------------------------------------------------------ |
+| closeAfterMs | `number`       | Time to wait before closing an item.                         |
+| close        | `function({})` | The close function to trigger the close of an item.          |
+| item         | `FeedbackItem` | The item that the wrapper should use.                        |
+| pauseOnHover | `boolean`      | If auto close timer should pause when mouse is over an item. |
 
-### notify
+### feedback
 
-Notify is the function to add messages to the items returned by `NotifyContainer`.
+feedback is the way to add messages to the items returned by `FeedbackContainer`.
 
-notify has four methods, each setting the kind of the item:
+feedback has four methods, each setting the kind of the item:
 
 - success
 - warning
@@ -85,20 +93,22 @@ notify has four methods, each setting the kind of the item:
 - info
 
 ```javascript
-notify.success('My message');
-notify.warning('My message');
-notify.error('My message');
-notify.info('My message');
+import { feedback } from 'react-feedbacker';
+
+feedback.success('My message');
+feedback.warning('My message');
+feedback.error('My message');
+feedback.info('My message');
 ```
 
-### NotifyItem
+### FeedbackItem
 
-Each item returned from `NotifyContainer`
+Each item returned from `FeedbackContainer`
 
 | property | type                                               | description                                                                                                |
 | -------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | id       | `string`                                           | A unique ID for each item, used for closing and deleting.                                                  |
-| message  | `string`                                           | The message sent in when creating a notify.                                                                |
+| message  | `string`                                           | The message sent in when creating a feedback message.                                                      |
 | kind     | `string` - "error", "success", "warning" or "info" | The kind of item.                                                                                          |
 | status   | `string` - "open" or "closing"                     | Status of an item. Standard is open, closing is when a close is triggered but there is a delay for delete. |
 

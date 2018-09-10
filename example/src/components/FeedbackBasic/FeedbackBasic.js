@@ -1,21 +1,21 @@
 import React from 'react';
-import './NotifyBasic.css';
+import './FeedbackBasic.css';
 import classNames from 'classnames';
-import { NotifyContainer, DelayWrapper } from '../../../../lib/module';
+import { FeedbackContainer, DelayWrapper } from '../../../../lib/module';
 
-const NotifyBasic = () => (
-  <NotifyContainer closeAfterMs={4000} delayCloseMs={400}>
+const FeedbackBasic = () => (
+  <FeedbackContainer closeAfterMs={4000} delayCloseMs={400}>
     {({ items, closeItem, getDelayWrapperProps }) => (
-      <div className="NotifyBasic__Container">
+      <div className="FeedbackBasic__Container">
         {items.length > 0 &&
           items.map(item => (
             <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
               <div
                 className={classNames(
-                  'NotifyBasic__Item',
-                  `NotifyBasic__Item--${item.kind}`,
+                  'FeedbackBasic__Item',
+                  `FeedbackBasic__Item--${item.kind}`,
                   {
-                    'NotifyBasic__Item--closing': item.status === 'closing',
+                    'FeedbackBasic__Item--closing': item.status === 'closing',
                   },
                 )}
               >
@@ -23,7 +23,7 @@ const NotifyBasic = () => (
 
                 <button
                   type="button"
-                  className="NotifyBasic__CloseButton"
+                  className="FeedbackBasic__CloseButton"
                   onClick={() => closeItem(item)}
                 >
                   x
@@ -33,7 +33,7 @@ const NotifyBasic = () => (
           ))}
       </div>
     )}
-  </NotifyContainer>
+  </FeedbackContainer>
 );
 
-export default NotifyBasic;
+export default FeedbackBasic;

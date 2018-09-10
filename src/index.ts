@@ -1,6 +1,12 @@
 import DelayWrapper from './DelayWrapper';
-import notify from './notify';
-import NotifyContainer from './NotifyContainer';
-import { NotifyKind, NotifyStatus } from './store';
+import feedback from './feedback';
+import FeedbackContainer from './FeedbackContainer';
+import { FeedbackKind, FeedbackStatus } from './store';
 
-export { NotifyContainer, DelayWrapper, notify, NotifyKind, NotifyStatus };
+export {
+  FeedbackContainer,
+  DelayWrapper,
+  feedback,
+  FeedbackKind,
+  FeedbackStatus,
+};

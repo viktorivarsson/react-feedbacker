@@ -1,7 +1,7 @@
 {
-  "name": "@viktor.ivarsson/react-notify",
+  "name": "react-feedbacker",
   "version": "1.0.0",
-  "description": "A customizable notifier for your React application",
+  "description": "A minimal base for creating notifications as feedback in the UI",
   "main": "lib/main/index.js",
   "typings": "lib/main/index.d.ts",
   "module": "lib/module/index.js",
@@ -9,10 +9,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/viktorivarsson/react-notify.git"
+    "url": "https://github.com/viktorivarsson/react-feedbacker.git"
   },
   "keywords": [
     "react",
+    "feedback",
     "notification",
     "notify",
     "toast"
@@ -28,7 +29,8 @@
     "lint": "tslint src/**/*.{ts,tsx}",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "precommit": "lint-staged",
-    "prepush": "npm test"
+    "prepush": "npm test",
+    "preversion": "npm test"
   },
   "lint-staged": {
     "linters": {

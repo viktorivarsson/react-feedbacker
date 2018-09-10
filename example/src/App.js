@@ -7,7 +7,7 @@ import Emotion from './pages/Emotion';
 
 const App = () => (
   <div>
-    <h1>React Notify</h1>
+    <h1>React Feedbacker</h1>
 
     <Nav />
 

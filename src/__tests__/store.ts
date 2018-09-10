@@ -73,7 +73,7 @@ test('can reset store', () => {
   expect(store.getState()).toEqual([]);
 });
 
-test('store notifies subscribers on insert', () => {
+test('store trigger subscriber callback on insert', () => {
   const spy = jest.fn();
 
   store.subscribe(spy);
@@ -83,7 +83,7 @@ test('store notifies subscribers on insert', () => {
   expect(spy).toHaveBeenCalledTimes(1);
 });
 
-test('store notifies subscribers on delete', () => {
+test('store trigger subscriber callback on delete', () => {
   const spy = jest.fn();
 
   dispatchInsert('trying subscribers');
