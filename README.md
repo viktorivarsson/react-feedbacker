@@ -2,6 +2,8 @@
 
 The library does not have opinions about styles, but instead gives you the functionality required to show the feedback messages.
 
+Visit [demo](https://react-feedbacker.netlify.com/)
+
 ## Install
 
 ```bash
@@ -11,29 +13,41 @@ npm install react-feedbacker --save
 ## Usage
 
 ```javascript
-import { FeedbackContainer, DelayWrapper } from 'react-feedbacker';
+import { FeedbackContainer, DelayWrapper, feedback } from 'react-feedbacker';
 
-<FeedbackContainer closeAfterMs={4000} delayCloseMs={400}>
-  {({ items, closeItem, getDelayWrapperProps }) => (
-    <div className="FeedbackContainer">
-      {items.map(item => (
-        <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
-          <div className="FeedbackItem">
-            {item.message}
+const App = () => (
+  <div>
+    <Feedbacker />
 
-            <button
-              type="button"
-              className="FeedbackClose"
-              onClick={() => closeItem(item)}
-            >
-              x
-            </button>
-          </div>
-        </DelayWrapper>
-      ))}
-    </div>
-  )}
-</FeedbackContainer>;
+    <button onClick={() => feedback.success('Clicked button, you have')}>
+      Give feedback
+    </button>
+  </div>
+);
+
+const Feedbacker = () => (
+  <FeedbackContainer closeAfterMs={4000} delayCloseMs={400}>
+    {({ items, closeItem, getDelayWrapperProps }) => (
+      <div className="FeedbackContainer">
+        {items.map(item => (
+          <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
+            <div className="FeedbackItem">
+              {item.message}
+
+              <button
+                type="button"
+                className="FeedbackClose"
+                onClick={() => closeItem(item)}
+              >
+                x
+              </button>
+            </div>
+          </DelayWrapper>
+        ))}
+      </div>
+    )}
+  </FeedbackContainer>
+);
 ```
 
 ### FeedbackContainer
