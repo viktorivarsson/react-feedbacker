@@ -1,8 +1,14 @@
-import { generateId } from './helpers';
+import { canUseDOM, generateId, warn } from './helpers';
 import store, { FeedbackKind } from './store';
 
-export const createFeedback = (kind: FeedbackKind) => (message: string) =>
-  store.dispatch({
+export const createFeedback = (kind: FeedbackKind) => (message: string) => {
+  if (!canUseDOM) {
+    return warn(
+      `feedback.${kind}() has been called on server, it will not insert feedback.`,
+    );
+  }
+
+  return store.dispatch({
     payload: {
       id: generateId(),
       kind,
@@ -11,6 +17,7 @@ export const createFeedback = (kind: FeedbackKind) => (message: string) =>
     },
     type: 'INSERT',
   });
+};
 
 export const feedback = {
   error: createFeedback('error'),
