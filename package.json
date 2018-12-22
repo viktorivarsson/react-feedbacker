@@ -1,6 +1,6 @@
 {
   "name": "react-feedbacker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A minimal base for creating notifications as feedback in the UI",
   "main": "lib/main/index.js",
   "typings": "lib/main/index.d.ts",
