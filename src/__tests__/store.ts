@@ -56,6 +56,7 @@ test('throws on invalid dispatched type', () => {
       message: 'My message',
       status: 'open',
     },
+    // @ts-ignore
     type: 'INVALID',
   });
 

@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { createCloseAction } from './actions';
 import { DelayWrapperProps } from './DelayWrapper';
@@ -26,14 +25,6 @@ class FeedbackContainer extends React.PureComponent<
   FeedbackContainerProps,
   FeedbackContainerState
 > {
-  public static propTypes = {
-    children: PropTypes.func,
-    closeAfterMs: PropTypes.number,
-    delayCloseMs: PropTypes.number,
-    pauseOnHover: PropTypes.bool,
-    render: PropTypes.func,
-  };
-
   public static defaultProps = {
     closeAfterMs: 5000,
     delayCloseMs: 0,

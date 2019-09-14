@@ -1,6 +1,5 @@
-import 'jest-dom/extend-expect';
 import * as React from 'react';
-import { cleanup, render } from 'react-testing-library';
+import { cleanup, render } from '@testing-library/react';
 import DelayWrapper from '../DelayWrapper';
 import { FeedbackItem } from '../store';
 

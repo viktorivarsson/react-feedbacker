@@ -9,9 +9,7 @@
     "declaration": true,
     "inlineSourceMap": true,
     "esModuleInterop": true,
-    "strict": true,
-    "types": ["node"],
-    "typeRoots": ["node_modules/@types"]
+    "strict": true
   },
   "include": ["src"],
   "exclude": ["node_modules/**", "src/__tests__/"],

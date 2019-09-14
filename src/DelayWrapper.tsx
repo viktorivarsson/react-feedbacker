@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { getTimeDifferenceInMs } from './helpers';
 import { FeedbackItem } from './store';
@@ -13,13 +12,6 @@ export interface DelayWrapperProps {
 const noop = () => {};
 
 class DelayWrapper extends React.PureComponent<DelayWrapperProps> {
-  public static propTypes = {
-    close: PropTypes.func.isRequired,
-    closeAfterMs: PropTypes.number,
-    item: PropTypes.object.isRequired,
-    pauseOnHover: PropTypes.bool,
-  };
-
   public timerStartedAt?: Date;
   public timer?: any = null;
   public timeRemaining = this.props.closeAfterMs;
