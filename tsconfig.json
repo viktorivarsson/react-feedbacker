@@ -1,5 +1,6 @@
 {
   "include": ["src", "types"],
+  "exclude": ["**/__tests__/**"],
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
