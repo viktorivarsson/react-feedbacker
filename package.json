@@ -23,6 +23,7 @@
   ],
   "scripts": {
     "test": "tsdx test --env=jsdom",
+    "test:coverage": "tsdx test --env=jsdom --coverage",
     "start": "tsdx watch",
     "start:example": "cd example && npm start",
     "build": "rimraf dist && tsdx build",
