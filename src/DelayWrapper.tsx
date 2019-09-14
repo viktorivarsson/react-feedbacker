@@ -11,9 +11,11 @@ export interface DelayWrapperProps {
 
 const noop = () => {};
 
+type Optional<T> = T | null | undefined;
+
 class DelayWrapper extends React.PureComponent<DelayWrapperProps> {
   public timerStartedAt?: Date;
-  public timer?: any = null;
+  public timer?: Optional<number> = null;
   public timeRemaining = this.props.closeAfterMs;
 
   public componentDidMount() {
@@ -36,7 +38,9 @@ class DelayWrapper extends React.PureComponent<DelayWrapperProps> {
       return;
     }
 
-    clearTimeout(this.timer);
+    if (this.timer != null) {
+      clearTimeout(this.timer);
+    }
 
     const timePassed = getTimeDifferenceInMs(new Date(), this.timerStartedAt);
 
