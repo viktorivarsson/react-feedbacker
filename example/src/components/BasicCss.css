@@ -1,14 +1,14 @@
-.FeedbackBasic__Container {
+.BasicCss__Container {
   position: fixed;
   right: 20px;
   top: 20px;
 }
 
-.FeedbackBasic__Container div:not(:last-of-type) {
+.BasicCss__Container div:not(:last-of-type) {
   margin-bottom: 10px;
 }
 
-.FeedbackBasic__Item {
+.BasicCss__Item {
   animation: slideIn 0.4s;
   border-radius: 5px;
   color: #fff;
@@ -20,30 +20,30 @@
   box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.12);
 }
 
-.FeedbackBasic__Item--closing {
+.BasicCss__Item--closing {
   opacity: 0;
   transform: translateX(60px);
   animation: slideOut 0.4s;
 }
 
-.FeedbackBasic__Item--success {
+.BasicCss__Item--success {
   background: #07c56c;
 }
 
-.FeedbackBasic__Item--warning {
+.BasicCss__Item--warning {
   background: #f5a105;
 }
 
-.FeedbackBasic__Item--error {
+.BasicCss__Item--error {
   background: #f83c32;
 }
 
-.FeedbackBasic__Item--info {
+.BasicCss__Item--info {
   background: #f4f4f4;
   color: #333;
 }
 
-.FeedbackBasic__CloseButton {
+.BasicCss__CloseButton {
   background: transparent;
   border: 0;
   color: inherit;

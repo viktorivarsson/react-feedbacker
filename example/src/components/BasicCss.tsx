@@ -1,21 +1,21 @@
 import React from 'react';
-import './FeedbackBasic.css';
+import './BasicCss.css';
 import classNames from 'classnames';
-import { FeedbackContainer, DelayWrapper } from '../../../../lib/module';
+import { FeedbackContainer, DelayWrapper } from '../../../';
 
 const FeedbackBasic = () => (
   <FeedbackContainer closeAfterMs={4000} delayCloseMs={400}>
     {({ items, closeItem, getDelayWrapperProps }) => (
-      <div className="FeedbackBasic__Container">
+      <div className="BasicCss__Container">
         {items.length > 0 &&
           items.map(item => (
             <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
               <div
                 className={classNames(
-                  'FeedbackBasic__Item',
-                  `FeedbackBasic__Item--${item.kind}`,
+                  'BasicCss__Item',
+                  `BasicCss__Item--${item.kind}`,
                   {
-                    'FeedbackBasic__Item--closing': item.status === 'closing',
+                    'BasicCss__Item--closing': item.status === 'closing',
                   },
                 )}
               >
@@ -23,7 +23,7 @@ const FeedbackBasic = () => (
 
                 <button
                   type="button"
-                  className="FeedbackBasic__CloseButton"
+                  className="BasicCss__CloseButton"
                   onClick={() => closeItem(item)}
                 >
                   x

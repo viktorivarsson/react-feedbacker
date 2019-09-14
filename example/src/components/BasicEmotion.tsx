@@ -1,6 +1,12 @@
-import React from 'react';
-import { FeedbackContainer, DelayWrapper } from '../../../../lib/module';
-import styled, { keyframes } from 'react-emotion';
+import React, { FC } from 'react';
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/core';
+import {
+  FeedbackContainer,
+  DelayWrapper,
+  FeedbackKind,
+  FeedbackStatus,
+} from '../../../';
 
 const slideFromRight = keyframes({
   from: {
@@ -46,7 +52,7 @@ const getColor = kind => {
   return '#fff';
 };
 
-const FeedbackItem = styled.div(
+const FeedbackItem = styled.div<{ kind: FeedbackKind; status: FeedbackStatus }>(
   {
     borderRadius: 3,
     fontSize: 14,
@@ -82,7 +88,7 @@ const CloseButton = styled.button({
   top: 10,
 });
 
-const FeedbackEmotion = () => (
+const EmotionBasicPage: FC = () => (
   <FeedbackContainer delayCloseMs={400}>
     {({ items, closeItem, getDelayWrapperProps }) => (
       <Container>
@@ -103,4 +109,4 @@ const FeedbackEmotion = () => (
   </FeedbackContainer>
 );
 
-export default FeedbackEmotion;
+export default EmotionBasicPage;
