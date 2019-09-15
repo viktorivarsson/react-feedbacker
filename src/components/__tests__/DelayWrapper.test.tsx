@@ -1,7 +1,6 @@
 import React from 'react';
 import { cleanup, render } from '@testing-library/react';
-import DelayWrapper from '../DelayWrapper';
-import { FeedbackItem } from '../../store';
+import { DelayWrapper } from '../DelayWrapper';
 import { itemFixture } from '../../__fixtures__/item';
 
 afterEach(cleanup);

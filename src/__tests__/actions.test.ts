@@ -1,5 +1,5 @@
 import { createCloseAction, deleteAction } from '../actions';
-import store, { FeedbackItem } from '../store';
+import { store, FeedbackItem } from '../store';
 import { itemFixture } from '../__fixtures__/item';
 
 afterEach(store.reset);

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import useFeedbackContainer, {
+import {
+  useFeedbackContainer,
   UseFeedbackContainerOptions,
   UseFeedbackContainerResponse,
 } from '../hooks/useFeedbackContainer';
@@ -11,7 +12,7 @@ type FeedbackContainerProps = UseFeedbackContainerOptions & {
   render?: (props: RenderProps) => JSX.Element;
 };
 
-const FeedbackContainer: FC<FeedbackContainerProps> = ({
+export const FeedbackContainer: FC<FeedbackContainerProps> = ({
   children,
   render = children,
   ...rest
@@ -24,5 +25,3 @@ const FeedbackContainer: FC<FeedbackContainerProps> = ({
 
   return render(childProps);
 };
-
-export default FeedbackContainer;

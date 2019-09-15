@@ -1,7 +1,7 @@
 import React from 'react';
 import { cleanup, fireEvent, render, act } from '@testing-library/react';
-import FeedbackContainer from '../FeedbackContainer';
-import store from '../../store';
+import { FeedbackContainer } from '../FeedbackContainer';
+import { store } from '../../store';
 import { DEFAULT_NAMESPACE } from '../../utils';
 import { itemFixture } from '../../__fixtures__/item';
 

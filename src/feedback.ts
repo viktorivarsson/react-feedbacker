@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { canUseDOM, generateId, warn, DEFAULT_NAMESPACE } from './utils';
-import store from './store';
+import { store } from './store';
 import { FeedbackKind } from './store';
 
 type FeedbackOptions = {

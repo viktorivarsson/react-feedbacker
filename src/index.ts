@@ -1,14 +1,8 @@
-import DelayWrapper from './components/DelayWrapper';
-import FeedbackContainer from './components/FeedbackContainer';
-import useFeedbackContainer from './hooks/useFeedbackContainer';
 import { FeedbackKind, FeedbackStatus } from './store';
 
 export * from './feedback';
+export * from './components/DelayWrapper';
+export * from './components/FeedbackContainer';
+export * from './hooks/useFeedbackContainer';
 
-export {
-  DelayWrapper,
-  FeedbackContainer,
-  FeedbackKind,
-  FeedbackStatus,
-  useFeedbackContainer,
-};
+export { FeedbackKind, FeedbackStatus };

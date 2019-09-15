@@ -1,5 +1,5 @@
 import { deleteAction } from '../actions';
-import store, { closeItem } from '../store';
+import { store, closeItem } from '../store';
 import { DEFAULT_NAMESPACE } from '../utils';
 import { itemFixture } from '../__fixtures__/item';
 

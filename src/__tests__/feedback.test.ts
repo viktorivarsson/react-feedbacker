@@ -1,5 +1,5 @@
 import { createFeedback, feedback } from '../feedback';
-import store from '../store';
+import { store } from '../store';
 
 afterEach(store.reset);
 

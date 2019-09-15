@@ -1,4 +1,4 @@
-import store, { FeedbackItem } from './store';
+import { store, FeedbackItem } from './store';
 
 export const createCloseAction = (closeDelayMs?: number) => (
   item: FeedbackItem,

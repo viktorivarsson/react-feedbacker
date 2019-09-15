@@ -11,7 +11,7 @@ export type DelayWrapperProps = {
 
 const noop = () => {};
 
-const DelayWrapper: FC<DelayWrapperProps> = ({
+export const DelayWrapper: FC<DelayWrapperProps> = ({
   close: onClose,
   closeAfterMs,
   item,
@@ -69,5 +69,3 @@ const DelayWrapper: FC<DelayWrapperProps> = ({
 
   return <div>{children}</div>;
 };
-
-export default DelayWrapper;

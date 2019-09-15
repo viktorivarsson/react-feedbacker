@@ -1,10 +1,10 @@
 import { ReactNode } from 'react';
 import { DEFAULT_NAMESPACE } from './utils';
 
-interface FeedbackAction {
+type FeedbackAction = {
   payload: FeedbackItem;
   type: 'APPEND' | 'PREPEND' | 'CLOSE' | 'DELETE';
-}
+};
 
 export type FeedbackKind = 'error' | 'success' | 'warning' | 'info';
 
@@ -12,13 +12,13 @@ export type FeedbackStatus = 'open' | 'closing';
 
 type FeedbackState = Record<FeedbackItem['namespace'], FeedbackItem[]>;
 
-export interface FeedbackItem {
+export type FeedbackItem = {
   id: string;
   namespace: string;
   message: ReactNode;
   kind: string;
   status: FeedbackStatus;
-}
+};
 
 type Reducer = (state: FeedbackState, action: FeedbackAction) => FeedbackState;
 
@@ -100,6 +100,4 @@ const createStore = (reducer: Reducer) => {
   };
 };
 
-const store = createStore(feedbackReducer);
-
-export default store;
+export const store = createStore(feedbackReducer);

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { DelayWrapperProps } from '../components/DelayWrapper';
 import { createCloseAction } from '../actions';
-import store, { FeedbackItem } from '../store';
+import { store, FeedbackItem } from '../store';
 import { DEFAULT_NAMESPACE } from '../utils';
 
 export type UseFeedbackContainerOptions = {
@@ -17,7 +17,7 @@ export type UseFeedbackContainerResponse = {
   getDelayWrapperProps: (options: DelayWrapperProps) => DelayWrapperProps;
 };
 
-const useFeedbackContainer = ({
+export const useFeedbackContainer = ({
   closeAfterMs = 5000,
   delayCloseMs = 0,
   pauseOnHover = true,
@@ -49,5 +49,3 @@ const useFeedbackContainer = ({
     items,
   };
 };
-
-export default useFeedbackContainer;
