@@ -1,8 +1,15 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { DelayWrapper, useFeedbackContainer } from '../../../';
+import { FeedbackItem, CloseFeedbackButton } from '../FeedbackItem';
+import {
+  DelayWrapper,
+  useFeedbackContainer,
+  createFeedback,
+} from '../../../../';
 
-import { FeedbackItem, CloseFeedbackButton } from './FeedbackItem';
+const NOTIFICATION_NAMESPACE = 'notifications';
+
+export const notify = createFeedback(NOTIFICATION_NAMESPACE)('info');
 
 const Container = styled.div({
   position: 'fixed',
@@ -14,9 +21,10 @@ const Container = styled.div({
   },
 });
 
-const BasicEmotion: FC = () => {
+export const NotificationContainer: FC = () => {
   const { items, closeItem, getDelayWrapperProps } = useFeedbackContainer({
     delayCloseMs: 400,
+    namespace: NOTIFICATION_NAMESPACE,
   });
 
   return (
@@ -39,5 +47,3 @@ const BasicEmotion: FC = () => {
     </Container>
   );
 };
-
-export default BasicEmotion;

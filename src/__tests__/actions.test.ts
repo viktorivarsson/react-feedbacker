@@ -1,8 +1,28 @@
 import { createCloseAction, deleteAction } from '../actions';
+import { DEFAULT_NAMESPACE } from '../utils';
 import store from '../store';
+
+const namespace = DEFAULT_NAMESPACE;
 
 afterEach(store.reset);
 jest.useFakeTimers();
+
+test('does not auto close when delay is 0', () => {
+  store.dispatch({
+    payload: {
+      id: 'some id',
+      namespace,
+      kind: 'success',
+      message: 'some message',
+      status: 'open',
+    },
+    type: 'INSERT',
+  });
+
+  expect(store.getState()).toHaveLength(1);
+  jest.advanceTimersByTime(10000);
+  expect(store.getState()).toHaveLength(1);
+});
 
 test('closes item and then removes if delay close', () => {
   const id = 'idToClose';
@@ -10,6 +30,7 @@ test('closes item and then removes if delay close', () => {
   store.dispatch({
     payload: {
       id,
+      namespace,
       kind: 'success',
       message: 'My message',
       status: 'open',
@@ -20,6 +41,7 @@ test('closes item and then removes if delay close', () => {
   store.dispatch({
     payload: {
       id: 'idToKeep',
+      namespace,
       kind: 'success',
       message: 'My message',
       status: 'open',
@@ -30,18 +52,21 @@ test('closes item and then removes if delay close', () => {
   const item = store.getState()[0];
 
   createCloseAction(100)(item);
+  expect(store.getState()).toHaveLength(2);
 
-  expect(store.getState()[0].status).toEqual('closing');
+  expect(store.getState()[0].status).toBe('closing');
 
   jest.advanceTimersByTime(500);
 
-  expect(store.getState()[0].id).not.toEqual(item.id);
+  expect(store.getState()).toHaveLength(1);
+  expect(store.getState()[0].id).not.toBe(item.id);
 });
 
 test('removes item if not delay close', () => {
   store.dispatch({
     payload: {
       id: 'firstId',
+      namespace,
       kind: 'success',
       message: 'My message',
       status: 'open',
@@ -52,6 +77,7 @@ test('removes item if not delay close', () => {
   store.dispatch({
     payload: {
       id: 'secondId',
+      namespace,
       kind: 'success',
       message: 'My message',
       status: 'open',
@@ -64,7 +90,7 @@ test('removes item if not delay close', () => {
   createCloseAction()(firstItem);
 
   expect(store.getState()).toHaveLength(1);
-  expect(store.getState()[0].id).not.toEqual(firstItem.id);
+  expect(store.getState()[0].id).not.toBe(firstItem.id);
 });
 
 test('can delete item through delete action', () => {
@@ -73,6 +99,7 @@ test('can delete item through delete action', () => {
   store.dispatch({
     payload: {
       id,
+      namespace,
       kind: 'success',
       message: 'My message',
       status: 'open',
@@ -82,7 +109,7 @@ test('can delete item through delete action', () => {
 
   const item = store.getState()[0];
 
-  expect(item.id).toEqual(id);
+  expect(item.id).toBe(id);
   expect(store.getState()).toHaveLength(1);
 
   deleteAction(item);

@@ -1,8 +1,10 @@
 import { ReactNode } from 'react';
-import { canUseDOM, generateId, warn } from './utils';
+import { canUseDOM, generateId, warn, DEFAULT_NAMESPACE } from './utils';
 import store, { FeedbackKind } from './store';
 
-export const createFeedback = (kind: FeedbackKind) => (message: ReactNode) => {
+export const createFeedback = (namespace: string) => (kind: FeedbackKind) => (
+  message: ReactNode,
+) => {
   if (!canUseDOM) {
     return warn(
       `feedback.${kind}() has been called on server, it will not insert feedback.`,
@@ -12,6 +14,7 @@ export const createFeedback = (kind: FeedbackKind) => (message: ReactNode) => {
   return store.dispatch({
     payload: {
       id: generateId(),
+      namespace,
       kind,
       message,
       status: 'open',
@@ -20,9 +23,11 @@ export const createFeedback = (kind: FeedbackKind) => (message: ReactNode) => {
   });
 };
 
+export const createDefaultFeedback = createFeedback(DEFAULT_NAMESPACE);
+
 export const feedback = {
-  error: createFeedback('error'),
-  info: createFeedback('info'),
-  success: createFeedback('success'),
-  warning: createFeedback('warning'),
+  error: createDefaultFeedback('error'),
+  info: createDefaultFeedback('info'),
+  success: createDefaultFeedback('success'),
+  warning: createDefaultFeedback('warning'),
 };

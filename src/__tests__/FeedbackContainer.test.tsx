@@ -3,14 +3,16 @@ import { cleanup, fireEvent, render, act } from '@testing-library/react';
 import FeedbackContainer from '../components/FeedbackContainer';
 import store from '../store';
 import { FeedbackItem } from '../store';
+import { DEFAULT_NAMESPACE } from '../utils';
 
 afterEach(() => {
   store.reset();
   cleanup();
 });
 
-const fakeItem: FeedbackItem = {
+const itemFixture: FeedbackItem = {
   id: 'test',
+  namespace: DEFAULT_NAMESPACE,
   kind: 'success',
   message: 'My message',
   status: 'open',
@@ -34,6 +36,7 @@ test('closes item from function prop', async () => {
   store.dispatch({
     payload: {
       id: 'id',
+      namespace: DEFAULT_NAMESPACE,
       kind: 'success',
       message: 'Message',
       status: 'open',
@@ -64,7 +67,7 @@ test('provides getDelayWrapperProps based on props', () => {
   render(
     <FeedbackContainer closeAfterMs={5000} pauseOnHover={false}>
       {({ getDelayWrapperProps }) => {
-        const dp = getDelayWrapperProps({ item: fakeItem });
+        const dp = getDelayWrapperProps({ item: itemFixture });
 
         expect(dp.closeAfterMs).toBe(5000);
         expect(dp.pauseOnHover).toBe(false);
@@ -77,7 +80,7 @@ test('provides getDelayWrapperProps based on props', () => {
   render(
     <FeedbackContainer closeAfterMs={2500} pauseOnHover={true}>
       {({ getDelayWrapperProps }) => {
-        const dp = getDelayWrapperProps({ item: fakeItem });
+        const dp = getDelayWrapperProps({ item: itemFixture });
 
         expect(dp.closeAfterMs).toBe(2500);
         expect(dp.pauseOnHover).toBe(true);

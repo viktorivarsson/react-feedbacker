@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { DEFAULT_NAMESPACE } from './utils';
 
 interface FeedbackAction {
   payload: FeedbackItem;
@@ -9,10 +10,11 @@ export type FeedbackKind = 'error' | 'success' | 'warning' | 'info';
 
 export type FeedbackStatus = 'open' | 'closing';
 
-type FeedbackState = FeedbackItem[];
+type FeedbackState = Record<FeedbackItem['namespace'], FeedbackItem[]>;
 
 export interface FeedbackItem {
   id: string;
+  namespace: string;
   message: ReactNode;
   kind: FeedbackKind;
   status: FeedbackStatus;
@@ -22,34 +24,45 @@ type Reducer = (state: FeedbackState, action: FeedbackAction) => FeedbackState;
 
 type FeedbackListener = () => void;
 
-export const closeItem = (item: FeedbackItem): FeedbackItem =>
-  Object.assign(item, {
-    status: 'closing',
-  });
+export const closeItem = (item: FeedbackItem): FeedbackItem => ({
+  ...item,
+  status: 'closing',
+});
 
 const feedbackReducer: Reducer = (
   state: FeedbackState,
   { type, payload }: FeedbackAction,
 ) => {
+  const items = state[payload.namespace] || [];
+
   switch (type) {
     case 'INSERT':
-      return [...state, payload];
+      return {
+        ...state,
+        [payload.namespace]: [...items, payload],
+      };
     case 'CLOSE':
-      return state.map(entry =>
-        entry.id === payload.id ? closeItem(entry) : entry,
-      );
+      return {
+        ...state,
+        [payload.namespace]: items.map(entry =>
+          entry.id === payload.id ? closeItem(entry) : entry,
+        ),
+      };
     case 'DELETE':
-      return state.filter(entry => entry.id !== payload.id);
+      return {
+        ...state,
+        [payload.namespace]: items.filter(entry => entry.id !== payload.id),
+      };
     default:
       return state;
   }
 };
 
 const createStore = (reducer: Reducer) => {
-  let state: FeedbackState = [];
+  let state: FeedbackState = {};
   let listeners: FeedbackListener[] = [];
 
-  const getState = () => state;
+  const getState = (namespace = DEFAULT_NAMESPACE) => state[namespace] || [];
 
   const dispatch = (action: FeedbackAction) => {
     const oldState = state;
@@ -70,7 +83,7 @@ const createStore = (reducer: Reducer) => {
   };
 
   const reset = () => {
-    state = [];
+    state = {};
   };
 
   return {

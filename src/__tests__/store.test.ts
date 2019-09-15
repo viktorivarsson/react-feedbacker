@@ -1,5 +1,8 @@
 import { deleteAction } from '../actions';
 import store, { closeItem } from '../store';
+import { DEFAULT_NAMESPACE } from '../utils';
+
+const namespace = DEFAULT_NAMESPACE;
 
 afterEach(store.reset);
 
@@ -7,6 +10,7 @@ const dispatchInsert = (message = 'My message') =>
   store.dispatch({
     payload: {
       id: 'fake',
+      namespace,
       kind: 'success',
       message,
       status: 'open',
@@ -22,6 +26,7 @@ test('can insert through dispatch', () => {
   store.dispatch({
     payload: {
       id: 'fake',
+      namespace,
       kind: 'success',
       message: 'My message',
       status: 'open',
@@ -52,6 +57,7 @@ test('throws on invalid dispatched type', () => {
   store.dispatch({
     payload: {
       id: 'test',
+      namespace,
       kind: 'success',
       message: 'My message',
       status: 'open',

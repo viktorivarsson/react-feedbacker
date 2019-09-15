@@ -50,7 +50,7 @@ const DelayWrapper: FC<DelayWrapperProps> = ({
   }, [close]);
 
   useEffect(() => {
-    if (closeAfterMs != null) {
+    if (closeAfterMs) {
       timerStartedAt.current = new Date();
       playTimer();
     }

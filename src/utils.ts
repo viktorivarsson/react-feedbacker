@@ -1,5 +1,7 @@
 export type Optional<T> = T | null | undefined;
 
+export const DEFAULT_NAMESPACE = '__DEFAULT_NAMESPACE__';
+
 export const generateId = () =>
   Math.random()
     .toString(36)

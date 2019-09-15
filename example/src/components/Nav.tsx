@@ -27,6 +27,7 @@ const NavBar = () => (
     <NavLink to="emotion">Emotion (CSS in JS)</NavLink>
     <NavLink to="render-prop">Render props container</NavLink>
     <NavLink to="elements">Render with elements</NavLink>
+    <NavLink to="namespaces">Namespaces</NavLink>
   </Nav>
 );
 
