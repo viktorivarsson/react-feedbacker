@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 import { createFeedback } from '../feedback';
-import { canUseDOM } from '../helpers';
+import { canUseDOM } from '../utils';
 import store from '../store';
 
 afterEach(store.reset);

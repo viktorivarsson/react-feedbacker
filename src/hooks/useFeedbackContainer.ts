@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
-import { DelayWrapperProps } from './DelayWrapper';
-import { createCloseAction } from './actions';
-import store, { FeedbackItem } from './store';
+import { DelayWrapperProps } from '../components/DelayWrapper';
+import { createCloseAction } from '../actions';
+import store, { FeedbackItem } from '../store';
 
 export type UseFeedbackContainerOptions = {
   closeAfterMs?: number;

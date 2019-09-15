@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { cleanup, render } from '@testing-library/react';
-import DelayWrapper from '../DelayWrapper';
+import DelayWrapper from '../components/DelayWrapper';
 import { FeedbackItem } from '../store';
 
 afterEach(cleanup);

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useCallback } from 'react';
-import { getTimeDifferenceInMs, Optional } from './helpers';
-import { FeedbackItem } from './store';
+import { getTimeDifferenceInMs, Optional } from '../utils';
+import { FeedbackItem } from '../store';
 
 export type DelayWrapperProps = {
   closeAfterMs?: number;

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import useFeedbackContainer, {
   UseFeedbackContainerOptions,
   UseFeedbackContainerResponse,
-} from './useFeedbackContainer';
+} from '../hooks/useFeedbackContainer';
 
 type RenderProps = UseFeedbackContainerResponse;
 

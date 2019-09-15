@@ -1,6 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { cleanup, fireEvent, render, act } from '@testing-library/react';
-import FeedbackContainer from '../FeedbackContainer';
+import FeedbackContainer from '../components/FeedbackContainer';
 import store from '../store';
 import { FeedbackItem } from '../store';
 

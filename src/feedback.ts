@@ -1,4 +1,4 @@
-import { canUseDOM, generateId, warn } from './helpers';
+import { canUseDOM, generateId, warn } from './utils';
 import store, { FeedbackKind } from './store';
 
 export const createFeedback = (kind: FeedbackKind) => (message: string) => {
@@ -25,5 +25,3 @@ export const feedback = {
   success: createFeedback('success'),
   warning: createFeedback('warning'),
 };
-
-export default feedback;

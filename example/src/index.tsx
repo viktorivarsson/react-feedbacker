@@ -1,8 +1,8 @@
 // @ts-ignore
 import 'react-app-polyfill/ie11';
 import 'modern-normalize';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { Router } from '@reach/router';
 import { Global } from '@emotion/core';
 import styled from '@emotion/styled';

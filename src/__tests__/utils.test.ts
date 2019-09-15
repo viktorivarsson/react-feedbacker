@@ -1,4 +1,4 @@
-import { canUseDOM, generateId, getTimeDifferenceInMs, warn } from '../helpers';
+import { canUseDOM, generateId, getTimeDifferenceInMs, warn } from '../utils';
 
 test('id should be random', () => {
   const numberOfIds = 20;
