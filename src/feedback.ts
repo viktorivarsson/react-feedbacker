@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { canUseDOM, generateId, warn, DEFAULT_NAMESPACE } from './utils';
-import store, { FeedbackKind } from './store';
+import store from './store';
+import { FeedbackKind } from './store';
 
 type FeedbackOptions = {
   namespace?: string;
@@ -10,7 +11,7 @@ type FeedbackOptions = {
 export const createFeedback = ({
   behavior = 'append',
   namespace = DEFAULT_NAMESPACE,
-}: FeedbackOptions = {}) => (kind: FeedbackKind) => (message: ReactNode) => {
+}: FeedbackOptions = {}) => (kind: string) => (message: ReactNode) => {
   if (!canUseDOM) {
     return warn(
       `feedback.${kind}() has been called on server, it will not insert feedback.`,
@@ -31,7 +32,10 @@ export const createFeedback = ({
 
 const createDefaultFeedback = createFeedback();
 
-export const feedback = {
+export const feedback: Record<
+  FeedbackKind,
+  ReturnType<typeof createDefaultFeedback>
+> = {
   error: createDefaultFeedback('error'),
   info: createDefaultFeedback('info'),
   success: createDefaultFeedback('success'),

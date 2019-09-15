@@ -16,7 +16,7 @@ export interface FeedbackItem {
   id: string;
   namespace: string;
   message: ReactNode;
-  kind: FeedbackKind;
+  kind: string;
   status: FeedbackStatus;
 }
 
