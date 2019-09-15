@@ -9,7 +9,9 @@ import {
 
 const NOTIFICATION_NAMESPACE = 'notifications';
 
-export const notify = createFeedback(NOTIFICATION_NAMESPACE)('info');
+export const notify = createFeedback({ namespace: NOTIFICATION_NAMESPACE })(
+  'info',
+);
 
 const Container = styled.div({
   position: 'fixed',

@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import { createDefaultFeedback } from '../feedback';
+import { createFeedback } from '../feedback';
 import { canUseDOM } from '../utils';
 import store from '../store';
 
@@ -13,7 +13,7 @@ test('Detect server', () => {
 
 test('Warns and ignores when adding feedback on server', () => {
   global.console.warn = jest.fn();
-  createDefaultFeedback('success')('My message');
+  createFeedback()('success')('My message');
   expect(global.console.warn).toHaveBeenCalled();
   expect(store.getState()).toEqual([]);
 });

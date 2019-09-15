@@ -3,7 +3,7 @@ import { DEFAULT_NAMESPACE } from './utils';
 
 interface FeedbackAction {
   payload: FeedbackItem;
-  type: 'INSERT' | 'CLOSE' | 'DELETE';
+  type: 'APPEND' | 'PREPEND' | 'CLOSE' | 'DELETE';
 }
 
 export type FeedbackKind = 'error' | 'success' | 'warning' | 'info';
@@ -36,10 +36,15 @@ const feedbackReducer: Reducer = (
   const items = state[payload.namespace] || [];
 
   switch (type) {
-    case 'INSERT':
+    case 'APPEND':
       return {
         ...state,
         [payload.namespace]: [...items, payload],
+      };
+    case 'PREPEND':
+      return {
+        ...state,
+        [payload.namespace]: [payload, ...items],
       };
     case 'CLOSE':
       return {

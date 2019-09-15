@@ -2,9 +2,15 @@ import { ReactNode } from 'react';
 import { canUseDOM, generateId, warn, DEFAULT_NAMESPACE } from './utils';
 import store, { FeedbackKind } from './store';
 
-export const createFeedback = (namespace: string) => (kind: FeedbackKind) => (
-  message: ReactNode,
-) => {
+type FeedbackOptions = {
+  namespace?: string;
+  behavior?: 'append' | 'prepend';
+};
+
+export const createFeedback = ({
+  behavior = 'append',
+  namespace = DEFAULT_NAMESPACE,
+}: FeedbackOptions = {}) => (kind: FeedbackKind) => (message: ReactNode) => {
   if (!canUseDOM) {
     return warn(
       `feedback.${kind}() has been called on server, it will not insert feedback.`,
@@ -19,11 +25,11 @@ export const createFeedback = (namespace: string) => (kind: FeedbackKind) => (
       message,
       status: 'open',
     },
-    type: 'INSERT',
+    type: behavior === 'append' ? 'APPEND' : 'PREPEND',
   });
 };
 
-export const createDefaultFeedback = createFeedback(DEFAULT_NAMESPACE);
+const createDefaultFeedback = createFeedback();
 
 export const feedback = {
   error: createDefaultFeedback('error'),

@@ -16,7 +16,7 @@ test('does not auto close when delay is 0', () => {
       message: 'some message',
       status: 'open',
     },
-    type: 'INSERT',
+    type: 'APPEND',
   });
 
   expect(store.getState()).toHaveLength(1);
@@ -35,7 +35,7 @@ test('closes item and then removes if delay close', () => {
       message: 'My message',
       status: 'open',
     },
-    type: 'INSERT',
+    type: 'APPEND',
   });
 
   store.dispatch({
@@ -46,7 +46,7 @@ test('closes item and then removes if delay close', () => {
       message: 'My message',
       status: 'open',
     },
-    type: 'INSERT',
+    type: 'APPEND',
   });
 
   const item = store.getState()[0];
@@ -71,7 +71,7 @@ test('removes item if not delay close', () => {
       message: 'My message',
       status: 'open',
     },
-    type: 'INSERT',
+    type: 'APPEND',
   });
 
   store.dispatch({
@@ -82,7 +82,7 @@ test('removes item if not delay close', () => {
       message: 'My message',
       status: 'open',
     },
-    type: 'INSERT',
+    type: 'APPEND',
   });
 
   const firstItem = store.getState()[0];
@@ -104,7 +104,7 @@ test('can delete item through delete action', () => {
       message: 'My message',
       status: 'open',
     },
-    type: 'INSERT',
+    type: 'APPEND',
   });
 
   const item = store.getState()[0];

@@ -15,7 +15,7 @@ const dispatchInsert = (message = 'My message') =>
       message,
       status: 'open',
     },
-    type: 'INSERT',
+    type: 'APPEND',
   });
 
 test('state should start as empty array', () => {
@@ -31,7 +31,7 @@ test('can insert through dispatch', () => {
       message: 'My message',
       status: 'open',
     },
-    type: 'INSERT',
+    type: 'APPEND',
   });
 
   const inserted = store.getState()[0];

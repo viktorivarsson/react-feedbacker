@@ -10,7 +10,10 @@ import {
 
 const SNACKBAR_NAMESPACE = 'snacks';
 
-export const snack = createFeedback(SNACKBAR_NAMESPACE)('info');
+export const snack = createFeedback({
+  namespace: SNACKBAR_NAMESPACE,
+  behavior: 'prepend',
+})('info');
 
 const slideIn = keyframes({
   from: {
@@ -90,7 +93,7 @@ export const SnackbarContainer: FC = () => {
       {items.length > 0 &&
         items.map(item => (
           <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
-            <SnackbarItem>
+            <SnackbarItem status={item.status}>
               {item.message}
 
               <CloseButton type="button" onClick={() => closeItem(item)}>

@@ -1,4 +1,4 @@
-import { createDefaultFeedback, createFeedback, feedback } from '../feedback';
+import { createFeedback, feedback } from '../feedback';
 import store from '../store';
 
 afterEach(store.reset);
@@ -10,7 +10,7 @@ test('creates item through feedback', () => {
 });
 
 test('create feedback works', () => {
-  createDefaultFeedback('success')('message');
+  createFeedback()('success')('message');
 
   expect(store.getState()[0].message).toBe('message');
 });
@@ -39,10 +39,28 @@ test('creates info type', () => {
   expect(store.getState()[0].kind).toBe('info');
 });
 
+test('insert behavior appends and prepends', () => {
+  const append = createFeedback({ behavior: 'append', namespace: 'ns1' })(
+    'info',
+  );
+  append('First');
+  append('Second');
+  expect(store.getState('ns1')[0].message).toBe('First');
+  expect(store.getState('ns1')[1].message).toBe('Second');
+
+  const prepend = createFeedback({ behavior: 'prepend', namespace: 'ns2' })(
+    'info',
+  );
+  prepend('First');
+  prepend('Second');
+  expect(store.getState('ns2')[0].message).toBe('Second');
+  expect(store.getState('ns2')[1].message).toBe('First');
+});
+
 test('can insert into namespace', () => {
-  createFeedback('ns1')('info')('ns1 message');
-  createFeedback('ns2')('info')('ns2 message');
-  createFeedback('ns2')('info')('ns2 message 2');
+  createFeedback({ namespace: 'ns1' })('info')('ns1 message');
+  createFeedback({ namespace: 'ns2' })('info')('ns2 message');
+  createFeedback({ namespace: 'ns2' })('info')('ns2 message 2');
 
   const ns1 = store.getState('ns1');
   const ns2 = store.getState('ns2');

@@ -41,7 +41,7 @@ test('closes item from function prop', async () => {
       message: 'Message',
       status: 'open',
     },
-    type: 'INSERT',
+    type: 'APPEND',
   });
 
   const item = store.getState()[0];
