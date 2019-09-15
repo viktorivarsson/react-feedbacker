@@ -1,22 +1,14 @@
 import React from 'react';
 import { cleanup, fireEvent, render, act } from '@testing-library/react';
-import FeedbackContainer from '../components/FeedbackContainer';
-import store from '../store';
-import { FeedbackItem } from '../store';
-import { DEFAULT_NAMESPACE } from '../utils';
+import FeedbackContainer from '../FeedbackContainer';
+import store from '../../store';
+import { DEFAULT_NAMESPACE } from '../../utils';
+import { itemFixture } from '../../__fixtures__/item';
 
 afterEach(() => {
   store.reset();
   cleanup();
 });
-
-const itemFixture: FeedbackItem = {
-  id: 'test',
-  namespace: DEFAULT_NAMESPACE,
-  kind: 'success',
-  message: 'My message',
-  status: 'open',
-};
 
 test('renders children as a function without crashing', () => {
   const { getByText } = render(

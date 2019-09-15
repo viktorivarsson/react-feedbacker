@@ -1,21 +1,15 @@
 import React from 'react';
 import { cleanup, render } from '@testing-library/react';
-import DelayWrapper from '../components/DelayWrapper';
-import { FeedbackItem } from '../store';
+import DelayWrapper from '../DelayWrapper';
+import { FeedbackItem } from '../../store';
+import { itemFixture } from '../../__fixtures__/item';
 
 afterEach(cleanup);
 jest.useFakeTimers();
 
-const item: FeedbackItem = {
-  id: '123',
-  kind: 'error',
-  message: 'My message',
-  status: 'open',
-};
-
 test('renders children without crashing', () => {
   const { getByText } = render(
-    <DelayWrapper item={item}>
+    <DelayWrapper item={itemFixture}>
       <div>Child</div>
     </DelayWrapper>,
   );
@@ -26,7 +20,7 @@ test('calls close function', () => {
   const spy = jest.fn();
 
   render(
-    <DelayWrapper item={item} close={spy} closeAfterMs={100}>
+    <DelayWrapper item={itemFixture} close={spy} closeAfterMs={100}>
       <div>Child</div>
     </DelayWrapper>,
   );

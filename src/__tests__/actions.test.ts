@@ -1,23 +1,15 @@
 import { createCloseAction, deleteAction } from '../actions';
-import { DEFAULT_NAMESPACE } from '../utils';
-import store from '../store';
-
-const namespace = DEFAULT_NAMESPACE;
+import store, { FeedbackItem } from '../store';
+import { itemFixture } from '../__fixtures__/item';
 
 afterEach(store.reset);
 jest.useFakeTimers();
 
+const dispatchAppend = (item: FeedbackItem) =>
+  store.dispatch({ payload: item, type: 'APPEND' });
+
 test('does not auto close when delay is 0', () => {
-  store.dispatch({
-    payload: {
-      id: 'some id',
-      namespace,
-      kind: 'success',
-      message: 'some message',
-      status: 'open',
-    },
-    type: 'APPEND',
-  });
+  dispatchAppend(itemFixture);
 
   expect(store.getState()).toHaveLength(1);
   jest.advanceTimersByTime(10000);
@@ -27,31 +19,12 @@ test('does not auto close when delay is 0', () => {
 test('closes item and then removes if delay close', () => {
   const id = 'idToClose';
 
-  store.dispatch({
-    payload: {
-      id,
-      namespace,
-      kind: 'success',
-      message: 'My message',
-      status: 'open',
-    },
-    type: 'APPEND',
-  });
+  dispatchAppend({ ...itemFixture, id });
+  dispatchAppend(itemFixture);
 
-  store.dispatch({
-    payload: {
-      id: 'idToKeep',
-      namespace,
-      kind: 'success',
-      message: 'My message',
-      status: 'open',
-    },
-    type: 'APPEND',
-  });
+  const head = store.getState()[0];
 
-  const item = store.getState()[0];
-
-  createCloseAction(100)(item);
+  createCloseAction(100)(head);
   expect(store.getState()).toHaveLength(2);
 
   expect(store.getState()[0].status).toBe('closing');
@@ -59,31 +32,13 @@ test('closes item and then removes if delay close', () => {
   jest.advanceTimersByTime(500);
 
   expect(store.getState()).toHaveLength(1);
-  expect(store.getState()[0].id).not.toBe(item.id);
+  expect(store.getState()[0].id).not.toBe(head.id);
 });
 
 test('removes item if not delay close', () => {
-  store.dispatch({
-    payload: {
-      id: 'firstId',
-      namespace,
-      kind: 'success',
-      message: 'My message',
-      status: 'open',
-    },
-    type: 'APPEND',
-  });
+  dispatchAppend(itemFixture);
 
-  store.dispatch({
-    payload: {
-      id: 'secondId',
-      namespace,
-      kind: 'success',
-      message: 'My message',
-      status: 'open',
-    },
-    type: 'APPEND',
-  });
+  dispatchAppend({ ...itemFixture, id: 'second' });
 
   const firstItem = store.getState()[0];
 
@@ -96,16 +51,7 @@ test('removes item if not delay close', () => {
 test('can delete item through delete action', () => {
   const id = 'idToBeRemoved';
 
-  store.dispatch({
-    payload: {
-      id,
-      namespace,
-      kind: 'success',
-      message: 'My message',
-      status: 'open',
-    },
-    type: 'APPEND',
-  });
+  dispatchAppend({ ...itemFixture, id });
 
   const item = store.getState()[0];
 
