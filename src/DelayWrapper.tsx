@@ -1,70 +1,73 @@
-import * as React from 'react';
-import { getTimeDifferenceInMs } from './helpers';
+import React, { FC, useEffect, useRef, useCallback } from 'react';
+import { getTimeDifferenceInMs, Optional } from './helpers';
 import { FeedbackItem } from './store';
 
-export interface DelayWrapperProps {
+export type DelayWrapperProps = {
   closeAfterMs?: number;
   close?: (item: FeedbackItem) => void;
   item: FeedbackItem;
   pauseOnHover?: boolean;
-}
+};
 
 const noop = () => {};
 
-type Optional<T> = T | null | undefined;
+const DelayWrapper: FC<DelayWrapperProps> = ({
+  close: onClose,
+  closeAfterMs,
+  item,
+  pauseOnHover,
+  children,
+}) => {
+  const timerStartedAt = useRef<Optional<Date>>();
+  const timeRemainingRef = useRef<Optional<number>>(closeAfterMs);
+  const timerRef = useRef<Optional<NodeJS.Timeout>>();
 
-class DelayWrapper extends React.PureComponent<DelayWrapperProps> {
-  public timerStartedAt?: Date;
-  public timer?: Optional<number> = null;
-  public timeRemaining = this.props.closeAfterMs;
-
-  public componentDidMount() {
-    if (!this.props.closeAfterMs) {
-      return;
+  const close = useCallback(() => {
+    if (typeof onClose === 'function') {
+      onClose(item);
     }
+  }, [onClose, item]);
 
-    this.timerStartedAt = new Date();
-    this.playTimer();
-  }
+  const pauseTimer = useCallback(() => {
+    if (timeRemainingRef.current != null && timerStartedAt.current != null) {
+      if (timerRef.current != null) {
+        clearTimeout(timerRef.current);
+      }
 
-  public close = () => {
-    if (typeof this.props.close === 'function') {
-      this.props.close(this.props.item);
+      const timePassed = getTimeDifferenceInMs(
+        new Date(),
+        timerStartedAt.current,
+      );
+
+      timeRemainingRef.current = timeRemainingRef.current - timePassed;
     }
-  };
+  }, []);
 
-  public pauseTimer = () => {
-    if (!this.timeRemaining || !this.timerStartedAt) {
-      return;
+  const playTimer = useCallback(() => {
+    if (timeRemainingRef.current != null) {
+      timerRef.current = setTimeout(close, timeRemainingRef.current);
     }
+  }, [close]);
 
-    if (this.timer != null) {
-      clearTimeout(this.timer);
+  useEffect(() => {
+    if (closeAfterMs != null) {
+      timerStartedAt.current = new Date();
+      playTimer();
     }
+  }, [closeAfterMs, playTimer]);
 
-    const timePassed = getTimeDifferenceInMs(new Date(), this.timerStartedAt);
-
-    this.timeRemaining = this.timeRemaining - timePassed;
-  };
-
-  public playTimer = () => {
-    this.timer = setTimeout(this.close, this.timeRemaining);
-  };
-
-  public render() {
-    const { pauseOnHover, closeAfterMs } = this.props;
-
-    return closeAfterMs ? (
+  if (closeAfterMs) {
+    return (
       <div
-        onMouseEnter={pauseOnHover ? this.pauseTimer : noop}
-        onMouseLeave={pauseOnHover ? this.playTimer : noop}
+        onMouseEnter={pauseOnHover ? pauseTimer : noop}
+        onMouseLeave={pauseOnHover ? playTimer : noop}
       >
-        {this.props.children}
+        {children}
       </div>
-    ) : (
-      <div>{this.props.children}</div>
     );
   }
-}
+
+  return <div>{children}</div>;
+};
 
 export default DelayWrapper;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent, render, act } from '@testing-library/react';
 import FeedbackContainer from '../FeedbackContainer';
 import store from '../store';
 import { FeedbackItem } from '../store';
@@ -30,7 +30,7 @@ test('renders render as prop without crashing', () => {
   getByText('Child');
 });
 
-test('closes item from function prop', () => {
+test('closes item from function prop', async () => {
   store.dispatch({
     payload: {
       id: 'id',
@@ -52,9 +52,12 @@ test('closes item from function prop', () => {
       )}
     </FeedbackContainer>,
   );
-  fireEvent.click(getByText('Remove'));
 
-  expect(store.getState()[0].status).toEqual('closing');
+  act(() => {
+    fireEvent.click(getByText('Remove'));
+  });
+
+  expect(store.getState()[0].status).toBe('closing');
 });
 
 test('provides getDelayWrapperProps based on props', () => {
@@ -63,8 +66,8 @@ test('provides getDelayWrapperProps based on props', () => {
       {({ getDelayWrapperProps }) => {
         const dp = getDelayWrapperProps({ item: fakeItem });
 
-        expect(dp.closeAfterMs).toEqual(5000);
-        expect(dp.pauseOnHover).toEqual(false);
+        expect(dp.closeAfterMs).toBe(5000);
+        expect(dp.pauseOnHover).toBe(false);
 
         return <div>Children</div>;
       }}
@@ -76,8 +79,8 @@ test('provides getDelayWrapperProps based on props', () => {
       {({ getDelayWrapperProps }) => {
         const dp = getDelayWrapperProps({ item: fakeItem });
 
-        expect(dp.closeAfterMs).toEqual(2500);
-        expect(dp.pauseOnHover).toEqual(true);
+        expect(dp.closeAfterMs).toBe(2500);
+        expect(dp.pauseOnHover).toBe(true);
 
         return <div>Children</div>;
       }}

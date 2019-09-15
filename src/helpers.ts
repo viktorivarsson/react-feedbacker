@@ -1,3 +1,5 @@
+export type Optional<T> = T | null | undefined;
+
 export const generateId = () =>
   Math.random()
     .toString(36)
