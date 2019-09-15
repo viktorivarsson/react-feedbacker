@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/core';
 import {
-  FeedbackContainer,
   DelayWrapper,
   FeedbackKind,
   FeedbackStatus,
+  useFeedbackContainer,
 } from '../../../';
 
 const slideFromRight = keyframes({
@@ -88,25 +88,27 @@ const CloseButton = styled.button({
   top: 10,
 });
 
-const EmotionBasicPage: FC = () => (
-  <FeedbackContainer delayCloseMs={400}>
-    {({ items, closeItem, getDelayWrapperProps }) => (
-      <Container>
-        {items.length > 0 &&
-          items.map(item => (
-            <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
-              <FeedbackItem kind={item.kind} status={item.status}>
-                {item.message}
+const EmotionBasicPage: FC = () => {
+  const { items, closeItem, getDelayWrapperProps } = useFeedbackContainer({
+    delayCloseMs: 400,
+  });
 
-                <CloseButton type="button" onClick={() => closeItem(item)}>
-                  x
-                </CloseButton>
-              </FeedbackItem>
-            </DelayWrapper>
-          ))}
-      </Container>
-    )}
-  </FeedbackContainer>
-);
+  return (
+    <Container>
+      {items.length > 0 &&
+        items.map(item => (
+          <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
+            <FeedbackItem kind={item.kind} status={item.status}>
+              {item.message}
+
+              <CloseButton type="button" onClick={() => closeItem(item)}>
+                x
+              </CloseButton>
+            </FeedbackItem>
+          </DelayWrapper>
+        ))}
+    </Container>
+  );
+};
 
 export default EmotionBasicPage;
