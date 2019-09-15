@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 interface FeedbackAction {
   payload: FeedbackItem;
   type: 'INSERT' | 'CLOSE' | 'DELETE';
@@ -11,7 +13,7 @@ type FeedbackState = FeedbackItem[];
 
 export interface FeedbackItem {
   id: string;
-  message: string;
+  message: ReactNode;
   kind: FeedbackKind;
   status: FeedbackStatus;
 }
@@ -33,8 +35,8 @@ const feedbackReducer: Reducer = (
     case 'INSERT':
       return [...state, payload];
     case 'CLOSE':
-      return state.map(
-        entry => (entry.id === payload.id ? closeItem(entry) : entry),
+      return state.map(entry =>
+        entry.id === payload.id ? closeItem(entry) : entry,
       );
     case 'DELETE':
       return state.filter(entry => entry.id !== payload.id);

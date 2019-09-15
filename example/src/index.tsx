@@ -10,6 +10,7 @@ import Nav from './components/Nav';
 import BasicEmotionPage from './pages/BasicEmotionPage';
 import BasicPage from './pages/BasicPage';
 import RenderPropPage from './pages/RenderPropPage';
+import ElementMessagePage from './pages/ElementMessagePage';
 
 const Container = styled.div({
   padding: 20,
@@ -40,6 +41,7 @@ const App = () => {
         <BasicPage path="/" />
         <RenderPropPage path="render-prop" />
         <BasicEmotionPage path="emotion" />
+        <ElementMessagePage path="elements" />
       </Router>
     </Container>
   );

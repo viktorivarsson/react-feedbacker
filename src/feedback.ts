@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import { canUseDOM, generateId, warn } from './utils';
 import store, { FeedbackKind } from './store';
 
-export const createFeedback = (kind: FeedbackKind) => (message: string) => {
+export const createFeedback = (kind: FeedbackKind) => (message: ReactNode) => {
   if (!canUseDOM) {
     return warn(
       `feedback.${kind}() has been called on server, it will not insert feedback.`,
