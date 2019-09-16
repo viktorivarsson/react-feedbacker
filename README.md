@@ -183,26 +183,28 @@ Each item returned from the [containers](#containers).
 
 ## Development setup
 
-Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
-
 ```sh
-npm install
+# Installing dependencies
+yarn install
 ```
 
 ```sh
-npm start
+# Starting the watch mode (outputs to dist)
+yarn start
 ```
 
 ## Build
 
 ```sh
-npm run build
+# Make production build
+yarn build
 ```
 
 ### Tests
 
 ```sh
-npm test
+# Run tests
+yarn test
 ```
 
 ## License
