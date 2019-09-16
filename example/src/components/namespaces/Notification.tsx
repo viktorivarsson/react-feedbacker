@@ -5,6 +5,7 @@ import {
   DelayWrapper,
   useFeedbackContainer,
   createFeedback,
+  FeedbackKind,
 } from '../../../../';
 
 const NOTIFICATION_NAMESPACE = 'notifications';
@@ -34,7 +35,7 @@ export const NotificationContainer: FC = () => {
       {items.length > 0 &&
         items.map(item => (
           <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
-            <FeedbackItem kind={item.kind} status={item.status}>
+            <FeedbackItem kind={item.kind as FeedbackKind} status={item.status}>
               {item.message}
 
               <CloseFeedbackButton

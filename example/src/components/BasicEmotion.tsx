@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled from '@emotion/styled';
-import { DelayWrapper, useFeedbackContainer } from '../../../';
+import { DelayWrapper, useFeedbackContainer, FeedbackKind } from '../../../';
 
 import { FeedbackItem, CloseFeedbackButton } from './FeedbackItem';
 
@@ -24,7 +24,7 @@ const BasicEmotion: FC = () => {
       {items.length > 0 &&
         items.map(item => (
           <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
-            <FeedbackItem kind={item.kind} status={item.status}>
+            <FeedbackItem kind={item.kind as FeedbackKind} status={item.status}>
               {item.message}
 
               <CloseFeedbackButton
