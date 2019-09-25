@@ -181,6 +181,10 @@ Each item returned from the [containers](#containers).
 | kind     | `string` - "error", "success", "warning" or "info" | The kind of item. This is always one of the types given here if the exported `feedback` is used.           |
 | status   | `string` - "open" or "closing"                     | Status of an item. Standard is open, closing is when a close is triggered but there is a delay for delete. |
 
+## Portal
+
+Rendering the container through a portal will allow you to mount the items outside of the current mount node and into another, existing node. See the [portal example](https://react-feedbacker.netlify.com/portal) or read more about portals in the [react docs](https://reactjs.org/docs/portals.html).
+
 ## Development setup
 
 ```sh
