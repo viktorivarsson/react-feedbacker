@@ -8,6 +8,7 @@ import { Global } from '@emotion/core';
 import styled from '@emotion/styled';
 import Nav from './components/Nav';
 import BasicEmotionPage from './pages/BasicEmotionPage';
+import PortalPage from './pages/PortalPage';
 import BasicPage from './pages/BasicPage';
 import RenderPropPage from './pages/RenderPropPage';
 import ElementMessagePage from './pages/ElementMessagePage';
@@ -42,6 +43,7 @@ const App = () => {
         <BasicPage path="/" />
         <RenderPropPage path="render-prop" />
         <BasicEmotionPage path="emotion" />
+        <PortalPage path="portal" />
         <ElementMessagePage path="elements" />
         <NamespacePage path="namespaces" />
       </Router>
