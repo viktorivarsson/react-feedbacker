@@ -8,7 +8,7 @@ const FeedbackBasicRenderProp = () => (
     {({ items, closeItem, getDelayWrapperProps }) => (
       <div className="BasicCss__Container">
         {items.length > 0 &&
-          items.map(item => (
+          items.map((item) => (
             <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
               <div
                 className={classNames(
