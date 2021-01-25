@@ -11,6 +11,8 @@ export type DelayWrapperProps = {
 
 const noop = () => {};
 
+type TimeoutId = ReturnType<typeof setTimeout>;
+
 export const DelayWrapper: FC<DelayWrapperProps> = ({
   close: onClose,
   closeAfterMs,
@@ -20,7 +22,7 @@ export const DelayWrapper: FC<DelayWrapperProps> = ({
 }) => {
   const timerStartedAt = useRef<Optional<Date>>();
   const timeRemainingRef = useRef<Optional<number>>(closeAfterMs);
-  const timerRef = useRef<Optional<NodeJS.Timeout>>();
+  const timerRef = useRef<Optional<TimeoutId>>();
 
   const close = useCallback(() => {
     if (typeof onClose === 'function') {
