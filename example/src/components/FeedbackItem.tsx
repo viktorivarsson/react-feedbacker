@@ -1,28 +1,27 @@
-import styled from '@emotion/styled';
-import { keyframes } from '@emotion/core';
+import styled, { keyframes } from 'styled-components';
 import { FeedbackKind, FeedbackStatus } from '../../../';
 
-const slideFromRight = keyframes({
-  from: {
-    opacity: 0,
-    transform: 'translateX(60px)',
-  },
-  to: {
-    opacity: 1,
-    transform: 'translateX(0)',
-  },
-});
+const slideFromRight = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
 
-const slideToRight = keyframes({
-  from: {
-    opacity: 1,
-    transform: 'translateX(0)',
-  },
-  to: {
-    opacity: 0,
-    transform: 'translateX(60px)',
-  },
-});
+const slideToRight = keyframes`
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+`;
 
 const getBackground = (kind: FeedbackKind) => {
   if (kind === 'error') return '#f83c32';
@@ -39,30 +38,27 @@ const getColor = (kind: FeedbackKind) => {
 export const FeedbackItem = styled.div<{
   kind: FeedbackKind;
   status: FeedbackStatus;
-}>(
-  {
-    borderRadius: 3,
-    fontSize: 14,
-    padding: 10,
-    paddingRight: 30,
-    position: 'relative',
-    width: 250,
-    boxShadow: '1px 2px 4px rgba(0, 0, 0, 0.12)',
+}>`
+  border-radius: 3px;
+  font-size: 14px;
+  padding: 10px;
+  padding-right: 30px;
+  position: relative;
+  width: 250px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.12);
+  background: ${(props) => getBackground(props.kind)};
+  color: ${(props) => getColor(props.kind)};
+  opacity: ${(props) => (props.status === 'closing' ? 0 : 1)};
+  transform: ${(props) =>
+    props.status === 'closing' ? 'translateX(60px)' : 'translateX(0)'};
+  animation: ${(props) =>
+      props.status === 'closing' ? slideToRight : slideFromRight}
+    0.3s ease-out;
 
-    ':not(:last-of-type)': {
-      marginBottom: 5,
-    },
-  },
-  ({ kind, status }) => ({
-    background: getBackground(kind),
-    color: getColor(kind),
-    opacity: status === 'closing' ? 0 : 1,
-    transform: status === 'closing' ? 'translateX(60px)' : 'translateX(0)',
-    animation: `${
-      status === 'closing' ? slideToRight : slideFromRight
-    } .3s ease-out`,
-  }),
-);
+  &:not(:last-of-type) {
+    margin-bottom: 5px;
+  }
+`;
 
 export const CloseFeedbackButton = styled.button({
   background: 'transparent',

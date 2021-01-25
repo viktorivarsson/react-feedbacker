@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
-import styled from '@emotion/styled';
-import { keyframes } from '@emotion/core';
+import styled, { keyframes } from 'styled-components';
 import {
   DelayWrapper,
   useFeedbackContainer,
@@ -15,27 +14,27 @@ export const snack = createFeedback({
   behavior: 'prepend',
 })('info');
 
-const slideIn = keyframes({
-  from: {
-    opacity: 0,
-    transform: 'translateY(30px)',
-  },
-  to: {
+const slideIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
     opacity: 1,
-    transform: 'translateY(0)',
-  },
-});
+    transform: translateY(0);
+  }
+`;
 
-const slideOut = keyframes({
-  from: {
-    opacity: 1,
-    transform: 'translateY(0)',
-  },
-  to: {
-    opacity: 0,
-    transform: 'translateY(30px)',
-  },
-});
+const slideOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+`;
 
 const Container = styled.div({
   position: 'fixed',
@@ -49,27 +48,25 @@ const Container = styled.div({
   },
 });
 
-const SnackbarItem = styled.div<{ status: FeedbackStatus }>(
-  {
-    borderRadius: 3,
-    fontSize: 14,
-    padding: 10,
-    paddingRight: 30,
-    position: 'relative',
-    boxShadow: '1px 2px 4px rgba(0, 0, 0, 0.12)',
-    background: 'linear-gradient(45deg, #33b6ff, #ff88fb)',
-    color: '#333',
+const SnackbarItem = styled.div<{ status: FeedbackStatus }>`
+  border-radius: 3px;
+  font-size: 14px;
+  padding: 10px;
+  padding-right: 30px;
+  position: relative;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.12);
+  background: linear-gradient(45deg, #33b6ff, #ff88fb);
+  color: #333;
+  opacity: ${(props) => (props.status === 'closing' ? 0 : 1)};
+  transform: ${(props) =>
+    props.status === 'closing' ? 'translateX(30px)' : 'translateX(0)'};
+  animation: ${(props) => (props.status === 'closing' ? slideOut : slideIn)}
+    0.3s ease-out;
 
-    ':not(:last-of-type)': {
-      marginBottom: 5,
-    },
-  },
-  ({ status }) => ({
-    opacity: status === 'closing' ? 0 : 1,
-    transform: status === 'closing' ? 'translateX(30px)' : 'translateX(0)',
-    animation: `${status === 'closing' ? slideOut : slideIn} .3s ease-out`,
-  }),
-);
+  :not(:last-of-type) {
+    margin-bottom: 5px;
+  }
+`;
 
 const CloseButton = styled.button({
   background: 'transparent',
@@ -91,7 +88,7 @@ export const SnackbarContainer: FC = () => {
   return (
     <Container>
       {items.length > 0 &&
-        items.map(item => (
+        items.map((item) => (
           <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
             <SnackbarItem status={item.status}>
               {item.message}

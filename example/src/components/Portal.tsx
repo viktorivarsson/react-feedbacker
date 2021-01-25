@@ -1,6 +1,6 @@
 import React, { FC, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import { DelayWrapper, useFeedbackContainer, FeedbackKind } from '../../../';
 
 import { FeedbackItem, CloseFeedbackButton } from './FeedbackItem';
@@ -41,7 +41,7 @@ const Portal: FC = () => {
   return createPortal(
     <Container>
       {items.length > 0 &&
-        items.map(item => (
+        items.map((item) => (
           <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
             <FeedbackItem kind={item.kind as FeedbackKind} status={item.status}>
               {item.message}

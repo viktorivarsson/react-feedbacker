@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import { FeedbackItem, CloseFeedbackButton } from '../FeedbackItem';
 import {
   DelayWrapper,
@@ -33,7 +33,7 @@ export const NotificationContainer: FC = () => {
   return (
     <Container>
       {items.length > 0 &&
-        items.map(item => (
+        items.map((item) => (
           <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
             <FeedbackItem kind={item.kind as FeedbackKind} status={item.status}>
               {item.message}

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Link } from '@reach/router';
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
 const Nav = styled.nav({
   marginBottom: 40,
@@ -12,7 +12,7 @@ const StyledNavLink = styled(Link)({
   color: '#0084ff',
 });
 
-const NavLink: FC<{ to: string }> = props => (
+const NavLink: FC<{ to: string }> = (props) => (
   <StyledNavLink
     {...props}
     getProps={({ isCurrent }) => ({
@@ -24,7 +24,7 @@ const NavLink: FC<{ to: string }> = props => (
 const NavBar = () => (
   <Nav>
     <NavLink to="/">Basic (CSS)</NavLink>
-    <NavLink to="emotion">Emotion (CSS in JS)</NavLink>
+    <NavLink to="styled-components">Styled Components (CSS in JS)</NavLink>
     <NavLink to="portal">Portal</NavLink>
     <NavLink to="render-prop">Render props container</NavLink>
     <NavLink to="elements">Render with elements</NavLink>

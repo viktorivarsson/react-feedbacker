@@ -1,0 +1,15 @@
+html {
+  font-family: 'Arial, Helvetica, sans-serif';
+}
+
+h1 {
+  font-size: 32;
+}
+
+h2 {
+  font-size: 20;
+}
+
+.AppContainer {
+  padding: 20px;
+}
