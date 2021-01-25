@@ -18,6 +18,7 @@ export type FeedbackItem = {
   message: ReactNode;
   kind: string;
   status: FeedbackStatus;
+  closeAfterMs?: number;
 };
 
 type Reducer = (state: FeedbackState, action: FeedbackAction) => FeedbackState;
@@ -49,14 +50,14 @@ const feedbackReducer: Reducer = (
     case 'CLOSE':
       return {
         ...state,
-        [payload.namespace]: items.map(entry =>
+        [payload.namespace]: items.map((entry) =>
           entry.id === payload.id ? closeItem(entry) : entry,
         ),
       };
     case 'DELETE':
       return {
         ...state,
-        [payload.namespace]: items.filter(entry => entry.id !== payload.id),
+        [payload.namespace]: items.filter((entry) => entry.id !== payload.id),
       };
     default:
       return state;
@@ -75,7 +76,7 @@ const createStore = (reducer: Reducer) => {
     state = reducer(state, action);
 
     if (oldState !== state) {
-      listeners.forEach(listener => listener());
+      listeners.forEach((listener) => listener());
     }
   };
 
@@ -83,7 +84,7 @@ const createStore = (reducer: Reducer) => {
     listeners = [...listeners, listener];
 
     return () => {
-      listeners = listeners.filter(l => l !== listener);
+      listeners = listeners.filter((l) => l !== listener);
     };
   };
 

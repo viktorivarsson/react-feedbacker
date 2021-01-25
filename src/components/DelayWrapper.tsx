@@ -15,11 +15,12 @@ type TimeoutId = ReturnType<typeof setTimeout>;
 
 export const DelayWrapper: FC<DelayWrapperProps> = ({
   close: onClose,
-  closeAfterMs,
+  closeAfterMs: wrapperCloseAfterMs,
   item,
   pauseOnHover,
   children,
 }) => {
+  const closeAfterMs = item.closeAfterMs ?? wrapperCloseAfterMs;
   const timerStartedAt = useRef<Optional<Date>>();
   const timeRemainingRef = useRef<Optional<number>>(closeAfterMs);
   const timerRef = useRef<Optional<TimeoutId>>();
