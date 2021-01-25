@@ -33,7 +33,7 @@ const Feedbacker = () => {
 
   return (
     <div className="FeedbackContainer">
-      {items.map(item => (
+      {items.map((item) => (
         <DelayWrapper key={item.id} {...getDelayWrapperProps({ item })}>
           <div className="FeedbackItem">
             {item.message}
@@ -133,6 +133,22 @@ feedback.success('My message');
 feedback.warning('My message');
 feedback.error('My message');
 feedback.info('My message');
+```
+
+You could optionally send a second attribute to a feedback with options.
+
+| property     | type     | description                       |
+| ------------ | -------- | --------------------------------- |
+| closeAfterMs | `number` | Optional override of closeAfterMs |
+| namespace    | `string` | Optional override of namespace    |
+
+```javascript
+import { feedback } from 'react-feedbacker';
+
+feedback.success('Some special message', {
+  closeAfterMs: 0,
+  namespace: 'some-namespace',
+});
 ```
 
 ### createFeedback

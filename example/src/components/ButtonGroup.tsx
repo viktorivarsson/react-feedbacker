@@ -35,6 +35,14 @@ const ButtonGroup = () => (
     >
       Add info
     </Button>
+
+    <Button
+      kind="info"
+      type="button"
+      onClick={() => feedback.info('Without auto close', { closeAfterMs: 0 })}
+    >
+      Feedback with options
+    </Button>
   </ButtonGroupContainer>
 );
 

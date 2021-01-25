@@ -71,3 +71,20 @@ test('can insert into namespace', () => {
   expect(ns2[0].message).toBe('ns2 message');
   expect(ns2[1].message).toBe('ns2 message 2');
 });
+
+test('given override options overrides defaults', () => {
+  createFeedback({ namespace: 'overrideMe' })('info')('first', {
+    namespace: 'correct',
+    closeAfterMs: 500,
+  });
+
+  expect(store.getState()).toHaveLength(0);
+  expect(store.getState('overrideMe')).toHaveLength(0);
+  expect(store.getState('correct')).toHaveLength(1);
+  expect(store.getState('correct')[0]).toMatchObject({
+    closeAfterMs: 500,
+    message: 'first',
+    kind: 'info',
+    namespace: 'correct',
+  });
+});
