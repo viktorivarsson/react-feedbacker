@@ -1,9 +1,6 @@
 import { deleteAction } from '../actions';
 import { store, closeItem } from '../store';
-import { DEFAULT_NAMESPACE } from '../utils';
 import { itemFixture } from '../__fixtures__/item';
-
-const namespace = DEFAULT_NAMESPACE;
 
 afterEach(store.reset);
 
@@ -50,7 +47,7 @@ test('returns previous state on unknown dispatched type', () => {
 
   store.dispatch({
     payload: itemFixture,
-    // @ts-ignore
+    // @ts-expect-error - unknown type that should give type error
     type: 'INVALID',
   });
 

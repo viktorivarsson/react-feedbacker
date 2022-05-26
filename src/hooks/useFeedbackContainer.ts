@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { DelayWrapperProps } from '../components/DelayWrapper';
 import { createCloseAction } from '../actions';
 import { store, FeedbackItem } from '../store';
@@ -25,11 +25,12 @@ export const useFeedbackContainer = ({
 }: UseFeedbackContainerOptions): UseFeedbackContainerResponse => {
   const [items, setItems] = useState<FeedbackItem[]>([]);
 
-  const onStoreUpdate = useCallback(() => setItems(store.getState(namespace)), [
-    namespace,
-  ]);
+  const onStoreUpdate = useCallback(
+    () => setItems(store.getState(namespace)),
+    [namespace],
+  );
 
-  const close = useCallback(createCloseAction(delayCloseMs), [delayCloseMs]);
+  const close = useMemo(() => createCloseAction(delayCloseMs), [delayCloseMs]);
 
   const getDelayWrapperProps = useCallback(
     (inputProps: DelayWrapperProps): DelayWrapperProps => ({

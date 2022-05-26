@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useCallback } from 'react';
+import React, { FC, useEffect, useRef, useCallback, ReactNode } from 'react';
 import { getTimeDifferenceInMs, Optional } from '../utils';
 import { FeedbackItem } from '../store';
 
@@ -9,11 +9,9 @@ export type DelayWrapperProps = {
   pauseOnHover?: boolean;
 };
 
-const noop = () => {};
-
 type TimeoutId = ReturnType<typeof setTimeout>;
 
-export const DelayWrapper: FC<DelayWrapperProps> = ({
+export const DelayWrapper: FC<DelayWrapperProps & { children?: ReactNode }> = ({
   close: onClose,
   closeAfterMs: wrapperCloseAfterMs,
   item,
@@ -62,8 +60,8 @@ export const DelayWrapper: FC<DelayWrapperProps> = ({
   if (closeAfterMs) {
     return (
       <div
-        onMouseEnter={pauseOnHover ? pauseTimer : noop}
-        onMouseLeave={pauseOnHover ? playTimer : noop}
+        onMouseEnter={pauseOnHover ? pauseTimer : undefined}
+        onMouseLeave={pauseOnHover ? playTimer : undefined}
       >
         {children}
       </div>
